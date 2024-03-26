@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 
 
-class BaseModel(models.Model):
+class PublishableModel(models.Model):
     is_published = models.BooleanField(
         default=True,
         verbose_name='Опубликовано',
@@ -14,7 +14,7 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class Category(BaseModel):
+class Category(PublishableModel):
     title = models.CharField(max_length=256, verbose_name='Заголовок')
     description = models.TextField(verbose_name='Описание')
     slug = models.SlugField(
@@ -32,7 +32,7 @@ class Category(BaseModel):
         return self.title
 
 
-class Location(BaseModel):
+class Location(PublishableModel):
     name = models.CharField(max_length=256, verbose_name='Название места')
 
     class Meta:
@@ -46,7 +46,7 @@ class Location(BaseModel):
 User = get_user_model()
 
 
-class Post(BaseModel):
+class Post(PublishableModel):
     title = models.CharField(max_length=256, verbose_name='	Заголовок')
     text = models.TextField(verbose_name='Текст')
     pub_date = models.DateTimeField(
