@@ -6,7 +6,8 @@ from blog.models import Post, Category
 
 
 def get_published_posts():
-    return Post.objects.filter(is_published=True, pub_date__lte=timezone.now())
+    return Post.objects.filter(is_published=True, pub_date__lte=timezone.now(),
+                               category__is_published=True)
 
 
 def index(request):
@@ -16,9 +17,9 @@ def index(request):
     return render(request, template_name, context)
 
 
-def post_detail(request, id):
+def post_detail(request, post_id):
     template_name = 'blog/detail.html'
-    post = get_object_or_404(get_published_posts(), pk=id)
+    post = get_object_or_404(get_published_posts(), pk=post_id)
     if not post.category.is_published:
         raise Http404("Публикация не найдена")
     context = {'post': post}
