@@ -9,10 +9,9 @@ class BaseModel(models.Model):
         help_text='Снимите галочку, чтобы скрыть публикацию.')
     created_at = models.DateTimeField(auto_now_add=True,
                                       verbose_name='Добавлено')
-    
+
     class Meta:
         abstract = True
-
 
 
 class Category(BaseModel):
@@ -24,7 +23,7 @@ class Category(BaseModel):
         help_text='Идентификатор страницы для URL; разрешены символы латиницы,'
                   ' цифры, дефис'
                   ' и подчёркивание.')
-    
+
     class Meta:
         verbose_name = 'категория'
         verbose_name_plural = 'Категории'
